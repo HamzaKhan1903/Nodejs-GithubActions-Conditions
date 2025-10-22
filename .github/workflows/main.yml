@@ -2,17 +2,18 @@ name: build nodejs application
 on: 
   push:
     branches:
-      - main
-      - dev 
       - master
+    branches-ignore:
+      - dev
+      - test
 jobs:
   buildjob:
     runs-on: ubuntu-latest
     steps:
       - name: clone the repo
-        uses: actions/checkout@v5
-      - name: Install nodejs
-        uses: actions/setup-node@v5
+        uses: actions/checkout@v4
+      - name: Install nodejs 
+        uses: actions/setup-node@v4
         with: 
           node-version: '18'
           cache: 'npm'
