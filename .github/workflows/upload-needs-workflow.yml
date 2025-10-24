@@ -22,7 +22,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: test.json
-          path: test.josn
+          path: /home/runner/work/Nodejs-GithubActions-Conditions/Nodejs-GithubActions-Conditions/test.json
   Buildjob:
     needs: Testjob
     runs-on: ubuntu-latest
