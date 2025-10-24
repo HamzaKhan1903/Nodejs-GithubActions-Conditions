@@ -1,0 +1,27 @@
+name: build nodejs application
+on: 
+  push:
+    branches:
+      - master
+jobs:
+  buildjob:
+    runs-on: ubuntu-latest
+    steps:
+      - name: clone the repo
+        uses: actions/checkout@v5
+      - name: Install nodejs 
+        uses: actions/setup-node@v5
+        with: 
+          node-version: '18'
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - - name: Run Tests (JSON + verbose)
+          run: npm test -- --reporter=verbose --reporter=json
+      - name: upload artifact to github repo
+        uses: actions/upload-artifact@v4
+        with:
+          name: nodejs-artifact.json
+          path: /home/runner/work/Nodejs-GithubActions-Conditions/Nodejs-GithubActions-Conditions/artifact/nodejs-artifact.json
+      - name: Build code
+        run: npm run build
