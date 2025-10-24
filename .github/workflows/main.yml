@@ -16,8 +16,8 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm ci
-      - - name: Run Tests (JSON + verbose)
-          run: npm test -- --reporter=verbose --reporter=json
+      - name: Run Tests (JSON + verbose)
+        run: npm test -- --reporter=verbose --reporter=json
       - name: upload artifact to github repo
         uses: actions/upload-artifact@v4
         with:
