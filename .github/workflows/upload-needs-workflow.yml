@@ -1,0 +1,40 @@
+name: build nodejs application
+on: 
+  push:
+    branches:
+      - master
+jobs:
+  Testjob:
+    runs-on: ubuntu-latest
+    steps:
+      - name: clone the repo
+        uses: actions/checkout@v5
+      - name: Install nodejs 
+        uses: actions/setup-node@v5
+        with: 
+          node-version: '18'
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Run Tests
+        run: npm test
+      - name: upload artifact to github repo
+        uses: actions/upload-artifact@v4
+        with:
+          name: test.json
+          path: test.josn
+  Buildjob:
+    needs: Testjob
+    runs-on: ubuntu-latest
+    steps:
+      - name: clone the repo
+        uses: actions/checkout@v5
+      - name: Install nodejs 
+        uses: actions/setup-node@v5
+        with: 
+          node-version: '18'
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Build code
+        run: npm run build
